@@ -53,7 +53,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
   const appName = process.env.NEXT_PUBLIC_APP_NAME || 'AI Chat';
 
   return (
-    <aside className="h-full w-full sm:w-[260px] shrink-0 bg-gray-50 border-r border-gray-200 flex flex-col">
+    <aside className="h-full w-full sm:w-[260px] shrink-0 bg-gray-100 border-r border-gray-200 flex flex-col">
       <div className="px-4 py-4 border-b border-gray-200">
         <div className="text-sm font-semibold tracking-tight text-gray-900 mb-3">
           {appName}
@@ -87,7 +87,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
                 className={`group flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive
                     ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                    : 'text-gray-700 hover:bg-gray-100 border border-transparent'
+                    : 'text-gray-700 hover:bg-gray-200/70 border border-transparent'
                 }`}
               >
                 <span className="truncate flex-1">{c.title}</span>
@@ -116,7 +116,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full text-left px-2 py-1.5 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+          className="w-full text-left px-2 py-1.5 rounded-md text-gray-700 hover:bg-gray-200/70 transition-colors"
         >
           로그아웃
         </button>

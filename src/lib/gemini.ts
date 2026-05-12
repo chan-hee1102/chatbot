@@ -29,7 +29,26 @@ export function buildContents(messages: MessageRow[]): GeminiContent[] {
   }));
 }
 
+function buildSystemInstruction(): string {
+  const now = new Date();
+  const today = new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    dateStyle: 'full',
+    timeStyle: 'short',
+  }).format(now);
+
+  return [
+    `현재 시각: ${today} (Asia/Seoul)`,
+    '당신은 친절하고 정확한 한국어 AI 어시스턴트입니다.',
+    '사용자 질문에 간결하고 명확하게 답하며, 필요할 때 마크다운(코드 블록, 표, 목록)을 활용하세요.',
+    '확실하지 않은 정보는 추측하지 말고 모른다고 답하세요.',
+  ].join('\n');
+}
+
 export async function streamGemini(contents: GeminiContent[]) {
-  const model = getClient().getGenerativeModel({ model: MODEL_ID });
+  const model = getClient().getGenerativeModel({
+    model: MODEL_ID,
+    systemInstruction: buildSystemInstruction(),
+  });
   return model.generateContentStream({ contents });
 }
