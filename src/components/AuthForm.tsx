@@ -133,7 +133,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-2.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="btn-lift w-full py-2.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {submitting ? '처리 중...' : copy.submit}
         </button>
@@ -142,7 +142,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       <div className="mt-5 text-center">
         <Link
           href={copy.switchHref}
-          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          className="text-sm text-gray-600 hover:text-gray-900 hover:underline underline-offset-4 transition-colors"
         >
           {copy.switchText}
         </Link>

@@ -62,7 +62,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
           type="button"
           onClick={handleCreate}
           disabled={creating}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50 transition-colors"
+          className="btn-lift w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <path d="M12 5v14M5 12h14" />
@@ -95,7 +95,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
                   type="button"
                   onClick={(e) => handleDelete(e, c.id)}
                   aria-label="대화 삭제"
-                  className={`shrink-0 text-gray-400 hover:text-red-600 transition-opacity ${
+                  className={`shrink-0 text-gray-400 hover:text-red-600 hover:scale-110 active:scale-95 transition-all duration-150 ${
                     isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}
                 >
@@ -116,7 +116,7 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full text-left px-2 py-1.5 rounded-md text-gray-700 hover:bg-gray-200/70 transition-colors"
+          className="w-full text-left px-2 py-1.5 rounded-md text-gray-700 hover:bg-gray-200/70 hover:translate-x-0.5 transition-all duration-150"
         >
           로그아웃
         </button>

@@ -137,6 +137,87 @@ textarea {
   resize: none;
 }
 
+/* "생각 중" 도트 애니메이션 */
+@keyframes thinking-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-4px) scale(1);
+    opacity: 1;
+  }
+}
+
+.thinking-dot {
+  animation: thinking-bounce 1.2s ease-in-out infinite;
+}
+
+.thinking-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.thinking-dot:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.thinking-dot:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+/* 스트리밍 커서 */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: blink 1s steps(2, end) infinite;
+}
+
+/* 버튼 공통 임팩트 (hover lift + active press) */
+.btn-lift {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out,
+    background-color 150ms ease-out, color 150ms ease-out;
+}
+
+.btn-lift:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -4px rgba(17, 24, 39, 0.18),
+    0 2px 4px -2px rgba(17, 24, 39, 0.1);
+}
+
+.btn-lift:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.1);
+}
+
+.btn-lift:disabled {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 아이콘 버튼 (pop) */
+.btn-pop {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out,
+    background-color 150ms ease-out;
+}
+
+.btn-pop:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px -2px rgba(17, 24, 39, 0.25);
+}
+
+.btn-pop:active:not(:disabled) {
+  transform: scale(0.96);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.1);
+}
+
+.btn-pop:disabled {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* 입력 필드 포커스 링 — Tailwind ring 대안 (밝은 톤) */
 .input-focus {
   outline: none;

@@ -14,8 +14,24 @@ type MessageBubbleProps = {
   streaming?: boolean;
 };
 
+function ThinkingDots() {
+  return (
+    <div
+      className="flex items-center gap-1.5 py-1"
+      role="status"
+      aria-label="응답 생성 중"
+    >
+      <span className="w-2 h-2 bg-gray-400 rounded-full thinking-dot" />
+      <span className="w-2 h-2 bg-gray-400 rounded-full thinking-dot" />
+      <span className="w-2 h-2 bg-gray-400 rounded-full thinking-dot" />
+    </div>
+  );
+}
+
 export default function MessageBubble({ role, content, streaming }: MessageBubbleProps) {
   const isUser = role === 'user';
+  const showDots = streaming && !content;
+  const showCursor = streaming && !!content;
 
   return (
     <div className={`w-full flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -32,43 +48,49 @@ export default function MessageBubble({ role, content, streaming }: MessageBubbl
           </p>
         ) : (
           <div className="markdown-body text-[15px] leading-relaxed break-words text-gray-900">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                code(props: ComponentPropsWithoutRef<'code'>) {
-                  const { className, children, ...rest } = props;
-                  const match = /language-(\w+)/.exec(className || '');
-                  const text = String(children ?? '').replace(/\n$/, '');
-                  if (match) {
-                    return (
-                      <SyntaxHighlighter
-                        language={match[1]}
-                        style={oneLight}
-                        PreTag="div"
-                        customStyle={{
-                          margin: '0.5rem 0',
-                          borderRadius: '0.5rem',
-                          fontSize: '0.875rem',
-                          backgroundColor: '#f9fafb',
-                          border: '1px solid #e5e7eb',
-                        }}
-                      >
-                        {text}
-                      </SyntaxHighlighter>
-                    );
-                  }
-                  return (
-                    <code className={className} {...rest}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            >
-              {content}
-            </ReactMarkdown>
-            {streaming && (
-              <span className="inline-block w-1.5 h-4 bg-gray-400 ml-0.5 align-[-2px] animate-pulse rounded-sm" />
+            {showDots ? (
+              <ThinkingDots />
+            ) : (
+              <>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code(props: ComponentPropsWithoutRef<'code'>) {
+                      const { className, children, ...rest } = props;
+                      const match = /language-(\w+)/.exec(className || '');
+                      const text = String(children ?? '').replace(/\n$/, '');
+                      if (match) {
+                        return (
+                          <SyntaxHighlighter
+                            language={match[1]}
+                            style={oneLight}
+                            PreTag="div"
+                            customStyle={{
+                              margin: '0.5rem 0',
+                              borderRadius: '0.5rem',
+                              fontSize: '0.875rem',
+                              backgroundColor: '#f9fafb',
+                              border: '1px solid #e5e7eb',
+                            }}
+                          >
+                            {text}
+                          </SyntaxHighlighter>
+                        );
+                      }
+                      return (
+                        <code className={className} {...rest}>
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
+                {showCursor && (
+                  <span className="inline-block w-1.5 h-4 bg-gray-500 ml-0.5 align-[-2px] rounded-sm blink-cursor" />
+                )}
+              </>
             )}
           </div>
         )}
