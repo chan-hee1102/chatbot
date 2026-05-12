@@ -50,23 +50,30 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
     router.refresh();
   }
 
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'AI Chat';
+
   return (
-    <aside className="h-full w-full sm:w-[260px] shrink-0 bg-gray-900 border-r border-gray-800 flex flex-col">
-      <div className="p-3 border-b border-gray-800">
+    <aside className="h-full w-full sm:w-[260px] shrink-0 bg-gray-50 border-r border-gray-200 flex flex-col">
+      <div className="px-4 py-4 border-b border-gray-200">
+        <div className="text-sm font-semibold tracking-tight text-gray-900 mb-3">
+          {appName}
+        </div>
         <button
           type="button"
           onClick={handleCreate}
           disabled={creating}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium disabled:opacity-50 transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50 transition-colors"
         >
-          <span className="text-lg leading-none">+</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
           <span>새 대화</span>
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 py-2 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-2 py-2 space-y-0.5">
         {conversations.length === 0 ? (
-          <p className="px-3 py-4 text-sm text-gray-500 text-center">
+          <p className="px-3 py-6 text-xs text-gray-500 text-center">
             대화가 없습니다.
           </p>
         ) : (
@@ -79,8 +86,8 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
                 onClick={onClose}
                 className={`group flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive
-                    ? 'bg-gray-800 text-white'
-                    : 'text-gray-300 hover:bg-gray-800/60'
+                    ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                    : 'text-gray-700 hover:bg-gray-100 border border-transparent'
                 }`}
               >
                 <span className="truncate flex-1">{c.title}</span>
@@ -88,11 +95,13 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
                   type="button"
                   onClick={(e) => handleDelete(e, c.id)}
                   aria-label="대화 삭제"
-                  className={`shrink-0 text-gray-500 hover:text-red-400 transition-opacity ${
+                  className={`shrink-0 text-gray-400 hover:text-red-600 transition-opacity ${
                     isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}
                 >
-                  ✕
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                  </svg>
                 </button>
               </Link>
             );
@@ -100,14 +109,14 @@ export default function Sidebar({ conversations, userEmail, onCreate, onDelete, 
         )}
       </nav>
 
-      <div className="border-t border-gray-800 p-3 space-y-2 text-sm">
-        <div className="text-gray-400 truncate" title={userEmail}>
+      <div className="border-t border-gray-200 p-3 space-y-1 text-sm">
+        <div className="px-2 py-1 text-xs text-gray-500 truncate" title={userEmail}>
           {userEmail}
         </div>
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full text-left px-2 py-1.5 rounded-md text-gray-300 hover:bg-gray-800"
+          className="w-full text-left px-2 py-1.5 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
         >
           로그아웃
         </button>

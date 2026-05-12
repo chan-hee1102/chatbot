@@ -19,7 +19,7 @@ const COPY: Record<Mode, { title: string; submit: string; switchHref: string; sw
   },
   register: {
     title: '회원가입',
-    submit: '회원가입',
+    submit: '계정 만들기',
     switchHref: '/login',
     switchText: '이미 계정이 있으신가요? 로그인',
   },
@@ -66,7 +66,6 @@ export default function AuthForm({ mode }: AuthFormProps) {
         router.push('/chat');
         router.refresh();
       } else {
-        // 회원가입 후 자동 로그인
         const loginRes = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -87,12 +86,14 @@ export default function AuthForm({ mode }: AuthFormProps) {
   }
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-xl">
-      <h1 className="text-2xl font-semibold text-center mb-6">{copy.title}</h1>
+    <div className="w-full max-w-sm mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+      <h1 className="text-xl font-semibold tracking-tight text-gray-900 text-center mb-6">
+        {copy.title}
+      </h1>
 
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5" htmlFor="email">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="email">
             이메일
           </label>
           <input
@@ -102,13 +103,13 @@ export default function AuthForm({ mode }: AuthFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={submitting}
-            className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-blue-500 disabled:opacity-50"
+            className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 disabled:opacity-50 transition"
             placeholder="you@example.com"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5" htmlFor="password">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="password">
             비밀번호
           </label>
           <input
@@ -118,13 +119,13 @@ export default function AuthForm({ mode }: AuthFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={submitting}
-            className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-blue-500 disabled:opacity-50"
+            className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 disabled:opacity-50 transition"
             placeholder={mode === 'register' ? '8자 이상' : ''}
           />
         </div>
 
         {error && (
-          <div className="text-sm text-red-400 bg-red-950/40 border border-red-900/60 rounded-lg px-3 py-2">
+          <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
             {error}
           </div>
         )}
@@ -132,14 +133,17 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full py-2.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {submitting ? '처리 중...' : copy.submit}
         </button>
       </form>
 
       <div className="mt-5 text-center">
-        <Link href={copy.switchHref} className="text-sm text-blue-400 hover:text-blue-300">
+        <Link
+          href={copy.switchHref}
+          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+        >
           {copy.switchText}
         </Link>
       </div>

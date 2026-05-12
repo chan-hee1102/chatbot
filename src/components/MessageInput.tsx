@@ -35,37 +35,47 @@ export default function MessageInput({ onSend, disabled, onStop, streaming }: Me
   }
 
   return (
-    <div className="border-t border-gray-800 bg-gray-950 px-4 py-3 sm:px-6 sm:py-4">
-      <div className="max-w-3xl mx-auto flex items-end gap-2">
-        <textarea
-          ref={textareaRef}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          rows={1}
-          placeholder={disabled ? 'AI 응답 생성 중...' : '메시지를 입력하세요 (Shift+Enter 줄바꿈)'}
-          disabled={disabled}
-          className="flex-1 px-3 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-blue-500 disabled:opacity-60 disabled:cursor-not-allowed leading-relaxed"
-        />
-        {streaming && onStop ? (
-          <button
-            type="button"
-            onClick={onStop}
-            className="shrink-0 h-11 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium transition-colors"
-            aria-label="응답 중단"
-          >
-            중단
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={submit}
-            disabled={disabled || !value.trim()}
-            className="shrink-0 h-11 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            전송
-          </button>
-        )}
+    <div className="border-t border-gray-200 bg-white px-4 py-3 sm:px-6 sm:py-4">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-end gap-2 bg-white border border-gray-300 rounded-2xl shadow-sm focus-within:border-gray-900 focus-within:ring-2 focus-within:ring-gray-900/10 transition px-3 py-2">
+          <textarea
+            ref={textareaRef}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            rows={1}
+            placeholder={disabled ? 'AI 응답 생성 중...' : '메시지를 입력하세요'}
+            disabled={disabled}
+            className="flex-1 bg-transparent text-gray-900 placeholder:text-gray-400 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed leading-relaxed py-1.5 text-[15px]"
+          />
+          {streaming && onStop ? (
+            <button
+              type="button"
+              onClick={onStop}
+              aria-label="응답 중단"
+              className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-gray-900 hover:bg-gray-800 text-white transition-colors"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="6" width="12" height="12" rx="1.5" />
+              </svg>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={submit}
+              disabled={disabled || !value.trim()}
+              aria-label="메시지 전송"
+              className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-gray-900 hover:bg-gray-800 text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </button>
+          )}
+        </div>
+        <p className="mt-1.5 text-[11px] text-gray-400 text-center">
+          Enter 전송 · Shift + Enter 줄바꿈
+        </p>
       </div>
     </div>
   );
